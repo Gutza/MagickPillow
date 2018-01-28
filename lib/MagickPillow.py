@@ -14,3 +14,13 @@ def pillow2wand(pil, image_format = 'PNG'):
 	byte_io.seek(0)
 	return WImage(blob=BytesIO.read(byte_io))
 
+def wand2pillow(wand, image_format = 'PNG'):
+	"""
+	Converts the incoming Wand image to a PIL image.
+	See the notes at :func:`pillow2wand`
+	"""
+	byte_io = BytesIO()
+	wand.format = image_format
+	wand.save(file=byte_io)
+	byte_io.seek(0)
+	return PImage.open(byte_io)
